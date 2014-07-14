@@ -35,6 +35,7 @@
       activityEvents: 'click keypress scroll wheel mousewheel mousemove', // separate each event with a space
 
       //dialog box configuration
+      enableDialog: true,
       dialogTitle: 'Session Expiration Warning',
       dialogText: 'Because you have been inactive, your session is about to expire.',
 
@@ -87,7 +88,9 @@
 
       if (timeNow > timeIdleTimeout) {
         if (isDialogOpen() !== true) {
-          openWarningDialog();
+          if (opts.enableDialog) {
+            openWarningDialog();
+          }
           startDialogTimer();
         }
       } else if (store.get('idleTimerLoggedOut') === true) { //a 'manual' user logout?

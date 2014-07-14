@@ -37,6 +37,7 @@
       activityEvents: 'click keypress scroll wheel mousewheel', // separate each event with a space
 
       //dialog box configuration
+      enableDialog: true,
       dialogTitle: 'Session Expiration Warning',
       dialogText: 'Because you have been inactive, your session is about to expire.',
 
@@ -94,8 +95,12 @@
       if (timeNow > timeIdleTimeout) {
         console.log('timeNow: ' + timeNow + ' > idle ' + timeIdleTimeout);
         if (isDialogOpen() !== true) {
-          console.log('dialog is not open & will be opened');
-          openWarningDialog();
+          if (opts.enableDialog) {
+            console.log('dialog is not open & will be opened');
+            openWarningDialog();
+          } else {
+            console.log('dialog is not open & will NOT be opened due to configuration');
+          }
           startDialogTimer();
         }
       } else if (store.get('idleTimerLoggedOut') === true) { //a 'manual' user logout?

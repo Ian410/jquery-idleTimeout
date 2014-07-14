@@ -4,7 +4,7 @@
  * Configurable idle (no activity) timer and logout redirect for jQuery.
  * Works across multiple windows and tabs from the same domain.
  *
- * Dependencies: JQuery v1.7+, JQuery UI, store.js from https://github.com/marcuswestin/store.js - v1.3.4+
+ * Dependencies: JQuery v1.7+, JQuery UI, store.js from https://github.com/marcuswestin/store.js/blob/master/store.min.js - v1.3.4+
  * version 1.0.6
  **/
 
@@ -34,6 +34,7 @@
       activityEvents: 'click keypress scroll wheel mousewheel mousemove', // separate each event with a space
 
       //dialog box configuration
+      enableDialog: true,
       dialogTitle: 'Session Expiration Warning',
       dialogText: 'Because you have been inactive, your session is about to expire.',
 
@@ -85,7 +86,9 @@
 
       if (timeNow > timeIdleTimeout) {
         if (isDialogOpen() !== true) {
-          openWarningDialog();
+          if (opts.enableDialog) {
+            openWarningDialog();
+          }
           startDialogTimer();
         }
       } else if (store.get('idleTimerLoggedOut') === true) { //a 'manual' user logout?
